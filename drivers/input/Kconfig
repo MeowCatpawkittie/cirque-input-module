@@ -11,6 +11,11 @@ menuconfig INPUT_PINNACLE
     help
       Enable driver for Cirque Pinnacle trackpads
 
+config INPUT_PINNACLE_REPORT_INTERVAL_MIN
+    int "Cirque Pinnacl's minimum report rate"
+    default 0
+    help
+
 if INPUT_PINNACLE
 
 config INPUT_PINNACLE_INIT_PRIORITY
