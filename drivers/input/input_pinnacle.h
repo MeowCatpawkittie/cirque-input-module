@@ -30,6 +30,14 @@
 #define PINNACLE_FEED_CFG1_DIS_Y BIT(4)
 #define PINNACLE_FEED_CFG1_INV_X BIT(6)
 #define PINNACLE_FEED_CFG1_INV_Y BIT(7)
+#define PINNACLE_FEED_CFG2 0x05               // Contains feed operation and configuration bits.
+#define PINNACLE_FEED_CFG2_EN_IM BIT(0)       // Intellimouse
+#define PINNACLE_FEED_CFG2_DIS_TAP BIT(1)     // Disable all taps
+#define PINNACLE_FEED_CFG2_DIS_SEC BIT(2)     // Disable secondary tap
+#define PINNACLE_FEED_CFG2_DIS_SCRL BIT(3)    // Disable scroll
+#define PINNACLE_FEED_CFG2_DIS_GE BIT(4)      // Disable GlideExtend
+#define PINNACLE_FEED_CFG2_EN_BTN_SCRL BIT(6) // Enable Button Scroll
+#define PINNACLE_FEED_CFG2_ROTATE_90 BIT(7)   // Swap X & Y
 #define PINNACLE_FEED_CFG3 0x06             // Contains feed operation and configuration bits.
 #define PINNACLE_FEED_CFG3_BTNS_456_TO_123_IN_REL BIT(0)
 #define PINNACLE_FEED_CFG3_DIS_SMO BIT(1)   // Disable smoothing
