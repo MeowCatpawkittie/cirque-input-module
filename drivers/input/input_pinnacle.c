@@ -732,11 +732,33 @@ static int pinnacle_init(const struct device *dev) {
 #if IS_ENABLED(CONFIG_PM_DEVICE)
 
 static int pinnacle_pm_action(const struct device *dev, enum pm_device_action action) {
+    uint8_t val;
+    int ret;
+
     switch (action) {
     case PM_DEVICE_ACTION_SUSPEND:
-        return set_int(dev, false);
+        // 現在のSYS_CFGを読む
+        ret = pinnacle_read_reg(dev, PINNACLE_SYS_CFG, &val);
+        if (ret) return ret;
+
+        // Sleep bitを立てる
+        val |= PINNACLE_SYS_CFG_EN_SLEEP;
+        ret = pinnacle_write_reg(dev, PINNACLE_SYS_CFG, val);
+        if (ret) return ret;
+
+        return set_int(dev, false); // 割り込み無効化
+
     case PM_DEVICE_ACTION_RESUME:
-        return set_int(dev, true);
+        // Force Wake を立てる
+        ret = pinnacle_read_reg(dev, PINNACLE_SYS_CFG, &val);
+        if (ret) return ret;
+
+        val |= PINNACLE_SYS_CFG_FORCE_WAKE_UP;
+        ret = pinnacle_write_reg(dev, PINNACLE_SYS_CFG, val);
+        if (ret) return ret;
+
+        return set_int(dev, true);  // 割り込み有効化
+
     default:
         return -ENOTSUP;
     }
